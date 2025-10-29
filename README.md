@@ -1,57 +1,87 @@
-# Changelog – Jetserver Auto Accept Orders
+# Jetserver Auto Accept Orders (for WHMCS 8.13+)
 
-All notable changes to this project will be documented in this file.
+Automatically accepts and provisions orders as soon as their invoices are paid — no more pending orders waiting for manual approval.
 
----
-
-## [3.1.0] – 2025-10-29
-### Added
-- Converted legacy hook script into a full WHMCS **addon module**
-- Added **admin dashboard page** with:
-  - Recent auto-accepted order log
-  - “Clear Log” button
-  - Debug Mode toggle
-- Added **category** metadata (Automation) for better WHMCS UI integration
-- Added built-in database table (`jetserver_autoaccept_log`) for persistent logs
-
-### Changed
-- Switched from manual configuration inside PHP file to WHMCS Addon Module configuration UI
-- Replaced `apiuser`-based API calls with **native WHMCS internal context**
-- Updated codebase to **Capsule ORM** for database operations
-- Modernized all hook and API usage for WHMCS 8.13.x / PHP 8.1+
-- Improved error handling and debug logging
-- Added optional payment-method filter
+This module replaces the old hook-based script with a full WHMCS addon module that integrates natively and securely.  
+It requires **no API user** and works entirely within WHMCS’ internal context.
 
 ---
 
-## [3.0.0] – 2025-10-25
-### Added
-- Reimplemented Auto Accept logic using native `InvoicePaid` hook
-- Added configuration fields for setup, registrar, email, and payment filters
+## Features
 
-### Changed
-- Removed dependency on direct database queries and legacy WHMCS 5.x syntax
-
----
-
-## [1.0.1] – 2016-05-10
-### Added
-- Initial release as WHMCS **hook file**
-- Customizable settings block for:
-  - Auto setup
-  - Domain automation
-  - Welcome emails
-  - Paid-only orders
-  - Payment method filtering
+- Automatically accepts orders when invoices are marked paid  
+- Works natively — **no admin API user required**  
+- Optional automation controls:
+  - Auto-provision products/services  
+  - Send domains to registrar  
+  - Send welcome and registration emails  
+- Option to process only fully paid invoices  
+- Optional payment-method filtering (accept only PayPal, Stripe, etc.)  
+- Built-in **admin dashboard page** with:
+  - Recent auto-accepted order log  
+  - “Clear Log” button  
+  - “Debug Mode” toggle for verbose logging  
+- Uses WHMCS’ Capsule ORM and hook system — fully compatible with PHP 8.1 +
 
 ---
 
-## [1.0.0] – 2015-12-01
-### Added
-- First public release by **Jetserver Web Hosting**
+## Installation
+
+1. Copy the module folder to your WHMCS installation:
+
+modules/addons/jetserver_autoacceptorders/
+
+
+2. In WHMCS Admin:
+- Go to **Setup → Addon Modules**
+- Find **Jetserver Auto Accept Orders**
+- Click **Activate**
+
+3. Once activated, click **Configure** and set your preferences:
+- Auto Setup Products  
+- Send to Registrar  
+- Send Emails  
+- Only Process Paid Invoices  
+- Payment Method Filter (comma-separated list)  
+- Debug Mode  
+
+4. (Optional) Add a 48×48 px logo:
+
+modules/addons/jetserver_autoacceptorders/logo.png
+
 
 ---
 
-## Authors
-- **Original:** Idan Ben-Ezra, Jetserver Web Hosting  
-- **Modernization:** Bastrian
+## Log Viewer
+
+After activation, visit  
+**Addons → Jetserver Auto Accept Orders**  
+to see the log table showing recently auto-accepted orders.  
+You can clear entries or enable Debug Mode for detailed event tracing in the WHMCS Activity Log.
+
+---
+
+## Technical Notes
+
+- The module uses WHMCS’ internal `localAPI()` context (no external API credentials).  
+- Data is stored in the table `jetserver_autoaccept_log`.  
+- Fully compatible with WHMCS 8.13.x and PHP 8.1+.  
+- Category: **Automation**
+
+---
+
+## Changelog
+
+**v3.1.0**
+- Rewritten as a WHMCS addon module  
+- Added admin UI with log viewer and debug mode  
+- Removed deprecated `apiuser` configuration  
+- Added payment method filter and category metadata  
+- Modernized to WHMCS 8.x standards (Capsule ORM, secure hooks)
+
+---
+
+## 🧑‍💻 Author
+
+Originally created by Jetserver Web Hosting* 
+Modernized and extended by Bastrian
