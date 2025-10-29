@@ -1,40 +1,57 @@
-# WHMCS-Auto-Accept-Orders
+# Changelog – Jetserver Auto Accept Orders
 
-This WHMCS Hook will auto accept orders. There is no need to manually accept them anymore !
-No more “pending” orders…
+All notable changes to this project will be documented in this file.
 
-Hook is highly customizable with a settings section that will let you set the following –
+---
 
-* Activate product provisioning (yes/no)
-* Perform domain automation (yes/no)
-* Send welcome email to client (yes/no)
-* Accept only paid orders (yes/no)
-* Set specific payment methods (i.e, “paypal”)
+## [3.1.0] – 2025-10-29
+### Added
+- Converted legacy hook script into a full WHMCS **addon module**
+- Added **admin dashboard page** with:
+  - Recent auto-accepted order log
+  - “Clear Log” button
+  - Debug Mode toggle
+- Added **category** metadata (Automation) for better WHMCS UI integration
+- Added built-in database table (`jetserver_autoaccept_log`) for persistent logs
 
-# Installation
+### Changed
+- Switched from manual configuration inside PHP file to WHMCS Addon Module configuration UI
+- Replaced `apiuser`-based API calls with **native WHMCS internal context**
+- Updated codebase to **Capsule ORM** for database operations
+- Modernized all hook and API usage for WHMCS 8.13.x / PHP 8.1+
+- Improved error handling and debug logging
+- Added optional payment-method filter
 
-Edit it with your favourite code editor (we recommend notepad++).
+---
 
-In the begining of the hook file, you will find our settings section –
+## [3.0.0] – 2025-10-25
+### Added
+- Reimplemented Auto Accept logic using native `InvoicePaid` hook
+- Added configuration fields for setup, registrar, email, and payment filters
 
+### Changed
+- Removed dependency on direct database queries and legacy WHMCS 5.x syntax
 
-	return array( 
-		'apiuser'		=> 'apiuser',
-		'autosetup' 		=> false,
-		'sendregistrar' 	=> false, 
-		'sendemail' 		=> false, 
-		'ispaid'		=> true, 
-		'paymentmethod'		=> array(''), 
-	);
+---
 
+## [1.0.1] – 2016-05-10
+### Added
+- Initial release as WHMCS **hook file**
+- Customizable settings block for:
+  - Auto setup
+  - Domain automation
+  - Welcome emails
+  - Paid-only orders
+  - Payment method filtering
 
-* apiuser – one of the admins username
-* autosetup – determines whether product provisioning is performed
-* sendregistrar – determines whether domain automation is performed
-* sendemail – sets if welcome emails for products and registration confirmation emails for domains should be sent
-* ispaid – set to true if you want to accept only paid orders
-* paymentmethod – set the payment method you want to accept automaticly (leave empty to use all payment methods). Payment method should be exactly as it named in WHMCS (copy & paste the gateway name)
+---
 
-Once you finished the editing the settings, upload it to your WHMCS hooks folder (“includes/hooks“).
+## [1.0.0] – 2015-12-01
+### Added
+- First public release by **Jetserver Web Hosting**
 
-That’s all !
+---
+
+## Authors
+- **Original:** Idan Ben-Ezra, Jetserver Web Hosting  
+- **Modernization:** Bastrian
