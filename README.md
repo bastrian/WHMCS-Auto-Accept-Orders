@@ -81,7 +81,7 @@ You can clear entries or enable Debug Mode for detailed event tracing in the WHM
 
 ---
 
-## 🧑‍💻 Author
+## Author
 
-Originally created by Jetserver Web Hosting* 
+Originally created by Jetserver Web Hosting
 Modernized and extended by Bastrian
